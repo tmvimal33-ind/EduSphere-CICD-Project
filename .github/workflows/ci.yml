@@ -1,0 +1,30 @@
+name: EduSphere CI
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: docker build -t edusphere-app .
+
+      - name: Test Docker Image
+        run: docker run --rm edusphere-app nginx -t
+    
+  
